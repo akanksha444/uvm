@@ -6,7 +6,6 @@
 
 - A class that extends `uvm_test`
 - The macro `\`uvm_component_utils` for factory registration
-- At least one phase method (like `build_phase`)
 - A `top` module that calls `run_test()`
 - Import of UVM package and inclusion of macros
 
@@ -95,11 +94,11 @@ A typical UVM testbench follows this hierarchical structure:
 
 ### If using Synopsys VCS:
 ```bash
-vcs -full64 -sverilog -ntb_opts uvm-1.2 hello_uvm.sv -o simv
-./simv +UVM_TESTNAME=hello_test
+vcs -full64 -sverilog -ntb_opts uvm-1.2 $(TOP_FILE) -o simv
+./simv +UVM_TESTNAME=$(TEST_NAME)
 
 ### If using Mentor Questa:
 ```bash
 vlog -sv +acc=rn hello_uvm.sv
-vsim -c top -do "run -all"
+vsim -c top +UVM_TESTNAME=$(TEST_NAME) -do "run -all"
 
