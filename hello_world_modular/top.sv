@@ -4,7 +4,7 @@
 //run test a uvm method, it needs to have access to the uvm library
 //hence we must include the packages and macro files
 
-`include "test.sv"
+import uvm_pkg::*;
 `include "uvm_macros.svh"
 
 module top;
