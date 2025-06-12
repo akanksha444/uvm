@@ -8,6 +8,7 @@ class my_monitor extends uvm_monitor;
   function new(string name="my_monitor", uvm_component parent);
     super.new(name, parent);
     `uvm_info("my_monitor", "A new monitor object is created", UVM_LOW)
+//   `uvm_info("FULL_NAME", get_full_name(), UVM_LOW)
   endfunction : new
 
   function void build_phase(uvm_phase phase);
@@ -23,6 +24,7 @@ class my_driver extends uvm_driver;
   function new(string name="my_driver", uvm_component parent);
     super.new(name, parent);
     `uvm_info("my_driver", "A new driver object is created", UVM_LOW)
+//    `uvm_info("FULL_NAME", get_full_name(), UVM_LOW)
   endfunction : new
 
   function void build_phase(uvm_phase phase);
@@ -38,6 +40,7 @@ class my_sequencer extends uvm_sequencer;
   function new(string name="my_sequencer", uvm_component parent);
     super.new(name, parent);
     `uvm_info("my_sequencer", "A new sequencer object is created", UVM_LOW)
+//    `uvm_info("FULL_NAME", get_full_name(), UVM_LOW)
   endfunction : new
 
   function void build_phase(uvm_phase phase);
@@ -57,6 +60,7 @@ class my_agent extends uvm_agent;
   function new(string name="my_agent", uvm_component parent);
     super.new(name, parent);
     `uvm_info("MY_AGENT", "A new agent object is created", UVM_LOW)
+//    `uvm_info("FULL_NAME", get_full_name(), UVM_LOW)
   endfunction : new
 
   function void build_phase(uvm_phase phase);
@@ -79,6 +83,7 @@ class my_env extends uvm_env;
   function new(string name="my_env", uvm_component parent);
     super.new(name, parent);
     `uvm_info("MY_ENV", "A new env object is created", UVM_LOW)
+//    `uvm_info("FULL_NAME", get_full_name(), UVM_LOW)
   endfunction : new
 
   function void build_phase(uvm_phase phase);
@@ -99,6 +104,7 @@ class my_test extends uvm_test;
   function new(string name="my_test", uvm_component parent);
     super.new(name, parent);
      `uvm_info("MY_TEST", "A new test object is created", UVM_LOW)
+//    `uvm_info("FULL_NAME", get_full_name(), UVM_LOW)
   endfunction : new
 
  function void build_phase(uvm_phase phase);
