@@ -1,85 +1,66 @@
-//stimulus modeling requries:
-//transaction class (my_sequence
-//atleast a test class where the sequence is randomized as per required logic
-//top
-
 `include "uvm_macros.svh"
 import uvm_pkg::*;
 
 //----------------------------------------------------
 
 class my_sequence_item extends uvm_sequence_item;
-  //factory registraiton
-  `uvm_object_utils(my_sequence)
-  
-  //member declaration
+  `uvm_object_utils(my_sequence_item)
+
   rand int unsigned address;
   rand int unsigned data;
-  
-  //constraint
+
   constraint a {
-                  address <1024;
-                  data < 500;
-                  data%2 ==0;
-                  }
-  
-  //ovrr const
-  function new(string name="my_sequence_item");
+    address < 1024;
+    data < 500;
+    data % 2 == 0;
+  }
+
+  function new(string name = "my_sequence_item");
     super.new(name);
-  endfunction : new
+  endfunction
 
   function void post_randomize();
-    `uvm_info("POST_RAND", "Randomizeation completed", UVM_LOW)
-  endfunction : post_randomize
+    `uvm_info("POST_RAND", "Randomization completed", UVM_LOW)
+  endfunction
 
-  function void display();
-    `uvm_info("DISPLAY", "******************************************", UVM_LOW)
-    `uvm_info("DISPLAY", "Randomized Value", UVM_LOW)
-    `uvm_info("DISPLAY", $sformatf("address: %0d", this.address), UVM_LOW)
-    `uvm_info("DISPLAY", $sformatf("data: %0d", this.data), UVM_LOW)
-  endfunction : display
-  
-endclass : my_sequence_item
+  function void do_print(uvm_printer printer);
+    super.do_print(printer);
+    printer.print_field_int("data", data, 32);
+    printer.print_field_int("address", address, 32);
+  endfunction
+endclass
 
 //----------------------------------------------------
 
 class my_test extends uvm_test;
-  //fact reg
   `uvm_component_utils(my_test)
-  
-  //create seq handle
+
   my_sequence_item seq;
-  
-  //overr constructor
-  function new(string name="my_test", uvm_component parent);
-    super.new(name, parent)l
-  endfunction : new
-  
-  //build phase
+
+  function new(string name = "my_test", uvm_component parent);
+    super.new(name, parent);
+  endfunction
+
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-
-    //create my_sequence_item instance
     seq = my_sequence_item::type_id::create("seq");
-    
-  endfunction : build_phase
-  
-  //run phase
+  endfunction
+
   task run_phase(uvm_phase phase);
-    super.run();
-
-    repeat(5) begin
+    super.run_phase(phase);
+    phase.raise_objection(this);
+    repeat (5) begin
       assert(seq.randomize());
-      seq.display();
+      seq.print();
     end
-    
-  endtask : run_phase
-  
-endclass : my_test
+    phase.drop_objection(this);
+  endtask
+endclass
 
+//----------------------------------------------------
 
 module top;
   initial begin
     run_test("my_test");
   end
-endmodule : top
+endmodule
