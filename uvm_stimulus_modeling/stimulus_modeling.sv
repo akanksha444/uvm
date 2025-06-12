@@ -8,7 +8,7 @@ import uvm_pkg::*;
 
 //----------------------------------------------------
 
-class my_sequence extends uvm_sequence_item;
+class my_sequence_item extends uvm_sequence_item;
   //factory registraiton
   `uvm_object_utils(my_sequence)
   
@@ -24,7 +24,7 @@ class my_sequence extends uvm_sequence_item;
                   }
   
   //ovrr const
-  function new(string name="my_sequence");
+  function new(string name="my_sequence_item");
     super.new(name);
   endfunction : new
 
@@ -39,7 +39,7 @@ class my_sequence extends uvm_sequence_item;
     `uvm_info("DISPLAY", $sformatf("data: %0d", this.data), UVM_LOW)
   endfunction : display
   
-endclass : my_sequence
+endclass : my_sequence_item
 
 //----------------------------------------------------
 
@@ -48,7 +48,7 @@ class my_test extends uvm_test;
   `uvm_component_utils(my_test)
   
   //create seq handle
-  my_sequence seq;
+  my_sequence_item seq;
   
   //overr constructor
   function new(string name="my_test", uvm_component parent);
@@ -59,8 +59,8 @@ class my_test extends uvm_test;
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
 
-    //create seq instance
-    seq = my_sequence::type_id::create("seq");
+    //create my_sequence_item instance
+    seq = my_sequence_item::type_id::create("seq");
     
   endfunction : build_phase
   
